@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node sgitsp.js"
   },
-  "author": "",
+  "author": "Sigit Purwadi",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
