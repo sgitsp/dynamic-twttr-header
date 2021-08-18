@@ -111,4 +111,4 @@ async function uploadBanner() {
 getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
-}, 60000);
+}, 90000);

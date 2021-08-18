@@ -1,1 +1,1 @@
-# Dynamic Header v.1.0# dynamic-twttr-header
+# Dynamic Twttr Header v.1.0
