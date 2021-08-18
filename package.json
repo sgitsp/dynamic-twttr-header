@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "To make my Twitter header dynamic",
   "type": "module",
-  "main": "index.js",
+  "main": "sgitsp.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node sgitsp.js"
   },
   "author": "",
   "license": "ISC",
