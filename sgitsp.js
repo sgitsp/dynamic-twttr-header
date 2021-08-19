@@ -119,12 +119,12 @@ async function drawBanner() {
       banner.composite(imageThree, 1304, 45);
       console.log(`3 latest followers added`);
       banner.print(dayFont, 585, 110, day);
-      banner.print(timeFont, 380, 92, digiTime(new Date));
+      banner.print(timeFont, 380, 92, digiTime(new Date).toLocaleString("en-US", {timeZone: "Asia/Jakarta"}));
       banner.print(dateFont, 584, 132, date);
       console.log(`Additional cosmetic added`);
       banner.print(font, 500, 465, credit);
       console.log(`Generating new header...`);
-      console.log(`Last sync: ${day}, ${date} (${digiTime(new Date)})`);
+      console.log(`Last sync: ${day}, ${date} (${digiTime(new Date).toLocaleString("en-US", {timeZone: "Asia/Jakarta"})})`);
       banner.write('1500x500-draw.png', function () {
         uploadBanner();
       });
@@ -144,6 +144,7 @@ async function uploadBanner() {
     });
 }
 
+// Set interval in milisecond 1 min = 60000
 getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
