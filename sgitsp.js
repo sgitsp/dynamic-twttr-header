@@ -16,8 +16,9 @@ const twitterClient = new TwitterClient({
   accessTokenSecret: process.env.CONSUMER_SECRET,
 });
 
-// Curent Date
+// Curent Date Function
 var today = new Date();
+today.setUTCHours(today.getHours() + 7); // add 7 hour based on GMT+7 location
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -25,15 +26,14 @@ let day = days[today.getDay()];
 let month = months[today.getMonth()];
 let date = today.getDate() + " " + month + " " + today.getFullYear();
 
-
 function currentTime(date) {
   var today = new Date();
-  today.setHours(today.getHours() + 7);
+  today.setUTCHours(today.getHours() + 7); // add 7 hour based on GMT+7 location
   let hours = ("0" + today.getHours()).slice(-2);
   let minutes = ("0" + today.getMinutes()).slice(-2);
   let seconds = ("0" + today.getSeconds()).slice(-2);
   let time = hours + ':' + minutes;
-  /*console.log('Time now:', time)*/
+  /*console.log('Time now:', time, 'WIB')*/
   return time;
 }
 
@@ -125,7 +125,7 @@ async function drawBanner() {
       console.log(`Additional cosmetic added`);
       banner.print(font, 500, 465, credit);
       console.log(`Generating new header...`);
-      console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)})`);
+      console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} GMT+7)`);
       banner.write('1500x500-draw.png',function () {
         uploadBanner();
       });
