@@ -17,23 +17,23 @@ const twitterClient = new TwitterClient({
 });
 
 // Curent Date
+var today = new Date();
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var today = new Date();
-today.setHours(today.getHours() + 7);
-/*let time = today.getHours() + ":" + today.getMinutes()/* + ":" + today.getSeconds()*/;
+let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 let day = days[today.getDay()];
-let month = months[today.getMonth()]
+let month = months[today.getMonth()];
 let date = today.getDate() + " " + month + " " + today.getFullYear();
 
-function digiTime(date) {
-  var hours = ("0" + today.getHours()).slice(-2);
-  var minutes = ("0" + today.getMinutes()).slice(-2);
-  var ampm = hours >= 12 ? 'PM' : 'AM';
-  /*hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;*/
-  let time = hours + ':' + minutes/* + ' ' + ampm*/;
+
+function currentTime(date) {
+  var today = new Date();
+  today.setHours(today.getHours() + 7);
+  let hours = ("0" + today.getHours()).slice(-2);
+  let minutes = ("0" + today.getMinutes()).slice(-2);
+  let seconds = ("0" + today.getSeconds()).slice(-2);
+  let time = hours + ':' + minutes;
+  /*console.log('Time now:', time)*/
   return time;
 }
 
@@ -120,13 +120,13 @@ async function drawBanner() {
       banner.composite(imageThree, 1304, 45);
       console.log(`3 latest followers added`);
       banner.print(dayFont, 585, 110, day);
-      banner.print(timeFont, 380, 92, digiTime(new Date));
+      banner.print(timeFont, 380, 92, currentTime(new Date));
       banner.print(dateFont, 584, 132, date);
       console.log(`Additional cosmetic added`);
       banner.print(font, 500, 465, credit);
       console.log(`Generating new header...`);
-      console.log(`Last sync: ${day}, ${date} (${digiTime(new Date)})`);
-      banner.write('1500x500-draw.png', function () {
+      console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)})`);
+      banner.write('1500x500-draw.png',function () {
         uploadBanner();
       });
     }
@@ -145,7 +145,9 @@ async function uploadBanner() {
     });
 }
 
+// Starter
 getLatestFollowers();
+setInterval(currentTime, 60000); // every 1 min
 setInterval(() => {
   getLatestFollowers();
-}, 120000);
+}, 120000); // every 2 min
