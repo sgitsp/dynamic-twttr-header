@@ -85,14 +85,22 @@ const width = 96,
     r = width / 2,
     circleShape = Buffer.from(`<svg><circle cx="${r}" cy="${r}" r="${r}" /></svg>`);
 
-// Fetch Recent Track from Lastfm 
+// Fetch Recent Track from Lastfm
 async function getRecentTrack() {
-  let listening = "This header image has been generated using special code by @sgitsp"
+  let listening = ""
   await axios.get(process.env.LASTFM).then(response => {
-    let song = response.data.recenttracks.track[0].name;
-    let artist = response.data.recenttracks.track[0].artist["#text"];
-    listening = ('Curently listening to' + ' ' + '"' + song + '"' + ' ' + 'by' + ' ' + artist);
-    console.log('Listening to:' + ' ' + song + ' ' + 'by' + ' ' + artist);
+    var latestTrack = response.data.recenttracks.track[0]
+    let trackTitle = latestTrack.name;
+    let trackArtist = latestTrack.artist["#text"];
+    // detect if the track has attributes associated with it
+    var nowplaying = latestTrack["@attr"]
+    // if nowplaying is underfined
+    if (typeof nowplaying === 'undefined') {
+      listening = "This header image has been generated using special code by @sgitsp"
+    } else {
+      listening = ('Curently listening to' + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
+    }
+    console.log(listening);
   });
   return listening;
 }
@@ -124,9 +132,9 @@ async function drawBanner() {
       banner.print(font, 500, 465, listening);
       console.log(`Generating new header...`);
       console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} GMT+7)`);
-      banner.write('1500x500-draw.png',function () {
+      banner.write('1500x500-draw.png'/*,function () {
         uploadBanner();
-      });
+      }*/);
     }
   );
 }
