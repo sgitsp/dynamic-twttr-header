@@ -5,7 +5,6 @@ import { TwitterClient } from 'twitter-api-client';
 import axios from 'axios';
 import fs from 'fs';
 import Jimp from 'jimp';
-import { parseString } from 'xml2js';
 import sharp from 'sharp';
 
 // Twitter auth credential
@@ -86,18 +85,17 @@ const width = 96,
     r = width / 2,
     circleShape = Buffer.from(`<svg><circle cx="${r}" cy="${r}" r="${r}" /></svg>`);
 
-// Function to get latest article via feed.xml
-/*
-async function getLatestArticleHeadline() {
-  let title = '';
-  await axios.get(process.env.SITEMAP).then((data) => {
-    parseString(data.data, function (err, data) {
-      title = data.lfm.recenttracks.track[0].artist['text'];
-    });
+// Fetch Recent Track from Lastfm 
+async function getRecentTrack() {
+  let listening = "This header image has been generated using special code by @sgitsp"
+  await axios.get(process.env.LASTFM).then(response => {
+    let song = response.data.recenttracks.track[0].name;
+    let artist = response.data.recenttracks.track[0].artist["#text"];
+    listening = ('Curently listening to' + ' ' + '"' + song + '"' + ' ' + 'by' + ' ' + artist);
+    console.log('Listening to:' + ' ' + song + ' ' + 'by' + ' ' + artist);
   });
-  return title;
+  return listening;
 }
-*/
 
 // Additional credit text
 let credit = 'This header image has been generated using special code by @sgitsp';
@@ -110,11 +108,11 @@ async function drawBanner() {
   const timeFont = await Jimp.loadFont("fonts/Caviar_Dreams_Bold_64.fnt");
   const dateFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
   images.forEach((image) => promiseArray.push(Jimp.read(image)));
-  //promiseArray.push(getLatestArticleHeadline());
+  promiseArray.push(getRecentTrack());
   promiseArray.push(Jimp.loadFont(Jimp.FONT_SANS_16_WHITE));
 
   Promise.all(promiseArray).then(
-    ([banner, imageOne, imageTwo, imageThree/*, headline*/, font]) => {
+    ([banner, imageOne, imageTwo, imageThree, listening, font]) => {
       banner.composite(imageOne, 1082, 45);
       banner.composite(imageTwo, 1193, 45);
       banner.composite(imageThree, 1304, 45);
@@ -123,7 +121,7 @@ async function drawBanner() {
       banner.print(timeFont, 380, 92, currentTime(new Date));
       banner.print(dateFont, 584, 132, date);
       console.log(`Additional cosmetic added`);
-      banner.print(font, 500, 465, credit);
+      banner.print(font, 500, 465, listening);
       console.log(`Generating new header...`);
       console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} GMT+7)`);
       banner.write('1500x500-draw.png',function () {
