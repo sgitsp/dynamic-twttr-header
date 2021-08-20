@@ -94,9 +94,10 @@ async function getRecentTrack() {
     let trackArtist = latestTrack.artist["#text"];
     // detect if the track has attributes associated with it
     var nowplaying = latestTrack["@attr"]
-    // if nowplaying is underfined
+    
+    // if nowplaying is undefined
     if (typeof nowplaying === 'undefined') {
-      listening = "This header image has been generated using special code by @sgitsp"
+      listening = ("Lately listened to" + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
     } else {
       listening = ('Curently listening to' + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
     }
@@ -115,6 +116,7 @@ async function drawBanner() {
   const dayFont = await Jimp.loadFont('fonts/TimeandSpace-Regular.ttf.fnt');
   const timeFont = await Jimp.loadFont("fonts/Caviar_Dreams_Bold_64.fnt");
   const dateFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
+  const listeningFont = await Jimp.loadFont("fonts/FreePixel_16.fnt")
   images.forEach((image) => promiseArray.push(Jimp.read(image)));
   promiseArray.push(getRecentTrack());
   promiseArray.push(Jimp.loadFont(Jimp.FONT_SANS_16_WHITE));
@@ -129,12 +131,15 @@ async function drawBanner() {
       banner.print(timeFont, 380, 92, currentTime(new Date));
       banner.print(dateFont, 584, 132, date);
       console.log(`Additional cosmetic added`);
-      banner.print(font, 500, 465, listening);
+      banner.print(listeningFont, 0, 470, {
+        text: listening,
+        alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
+      }, 1480, 500);
       console.log(`Generating new header...`);
       console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} GMT+7)`);
-      banner.write('1500x500-draw.png'/*,function () {
+      banner.write('1500x500-draw.png',function () {
         uploadBanner();
-      }*/);
+      });
     }
   );
 }
