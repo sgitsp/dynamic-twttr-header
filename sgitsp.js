@@ -97,9 +97,9 @@ async function getRecentTrack() {
     
     // if nowplaying is undefined
     if (typeof nowplaying === 'undefined') {
-      listening = ("Lately listened to" + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
+      listening = ("Recently played:" + ' ' + "'" + trackTitle + "'" + ' ' + 'by' + ' ' + trackArtist);
     } else {
-      listening = ('Curently listening to' + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
+      listening = ('Curently listening to' + ' ' + "'" + trackTitle + "'" + ' ' + 'by' + ' ' + trackArtist);
     }
     console.log(listening);
   });
@@ -138,9 +138,9 @@ async function drawBanner() {
       }, 1445, 465);
       console.log(`Generating new header...`);
       console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} UTC+7)`);
-      banner.write('1500x500-draw.png',function () {
+      banner.write('1500x500-draw.png'/*,function () {
         uploadBanner();
-      });
+      }*/);
     }
   );
 }
