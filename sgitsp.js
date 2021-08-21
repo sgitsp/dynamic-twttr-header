@@ -131,12 +131,13 @@ async function drawBanner() {
       banner.print(timeFont, 380, 92, currentTime(new Date));
       banner.print(dateFont, 584, 132, date);
       console.log(`Additional cosmetic added`);
-      banner.print(listeningFont, 0, 470, {
+      banner.print(listeningFont, 0, 465, {
         text: listening,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
-      }, 1480, 500);
+        alignmentX: Jimp.VERTICAL_ALIGN_BOTTOM,
+      }, 1445, 465);
       console.log(`Generating new header...`);
-      console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} GMT+7)`);
+      console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} UTC+7)`);
       banner.write('1500x500-draw.png',function () {
         uploadBanner();
       });
