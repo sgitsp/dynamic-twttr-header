@@ -97,9 +97,9 @@ async function getRecentTrack() {
     
     // if nowplaying is undefined
     if (typeof nowplaying === 'undefined') {
-      listening = ("Recently played:" + ' ' + "'" + trackTitle + "'" + ' ' + 'by' + ' ' + trackArtist);
+      listening = ("Recently played:" + ' ' + trackTitle + ' ' + 'by' + ' ' + trackArtist);
     } else {
-      listening = ("Curently listening to" + ' ' + "'" + trackTitle + "'" + ' ' + 'by' + ' ' + trackArtist);
+      listening = ("Now playing:" + ' ' + trackTitle + ' ' + 'by' + ' ' + trackArtist);
     }
     console.log(listening);
   });
