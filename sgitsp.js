@@ -162,4 +162,4 @@ getLatestFollowers();
 setInterval(currentTime, 60000); // every 1 min
 setInterval(() => {
   getLatestFollowers();
-}, 120000); // every 2 min
+}, 90000); // every 2 min
