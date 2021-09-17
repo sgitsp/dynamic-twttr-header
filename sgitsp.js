@@ -113,7 +113,7 @@ let credit = 'This header image has been generated using special code by @sgitsp
 async function drawBanner() {
   const images = ['1500x500-default.png', '0.png', '1.png', '2.png'];
   const promiseArray = [];
-  const dayFont = await Jimp.loadFont('fonts/TimeandSpace-Regular.ttf.fnt');
+  const dayFont = await Jimp.loadFont('fonts/CaviarDreams.32.fnt');
   const timeFont = await Jimp.loadFont("fonts/Caviar_Dreams_Bold_64.fnt");
   const dateFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
   const listeningFont = await Jimp.loadFont("fonts/FreePixel_16.fnt")
@@ -127,9 +127,9 @@ async function drawBanner() {
       banner.composite(imageTwo, 1193, 45);
       banner.composite(imageThree, 1304, 45);
       console.log(`3 latest followers added`);
-      banner.print(dayFont, 585, 110, day);
+      banner.print(dayFont, 585, 98, day);
       banner.print(timeFont, 380, 92, currentTime(new Date));
-      banner.print(dateFont, 584, 132, date);
+      banner.print(dateFont, 584, 138, date);
       console.log(`Additional cosmetic added`);
       banner.print(listeningFont, 0, 465, {
         text: listening,
