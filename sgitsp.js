@@ -116,7 +116,7 @@ async function drawBanner() {
   const dayFont = await Jimp.loadFont('fonts/CaviarDreams.32.fnt');
   const timeFont = await Jimp.loadFont("fonts/Caviar_Dreams_Bold_64.fnt");
   const dateFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
-  const listeningFont = await Jimp.loadFont("fonts/FreePixel_16.fnt")
+  const listeningFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE)
   images.forEach((image) => promiseArray.push(Jimp.read(image)));
   promiseArray.push(getRecentTrack());
   promiseArray.push(Jimp.loadFont(Jimp.FONT_SANS_16_WHITE));
