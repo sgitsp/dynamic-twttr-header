@@ -135,7 +135,7 @@ async function drawBanner() {
         text: listening,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
         alignmentX: Jimp.VERTICAL_ALIGN_BOTTOM,
-      }, 1445, 465);
+      }, 1445, 459);
       console.log(`Generating new header...`);
       console.log(`Last sync: ${day}, ${date} (${currentTime(new Date)} UTC+7)`);
       banner.write('1500x500-draw.png',function () {
