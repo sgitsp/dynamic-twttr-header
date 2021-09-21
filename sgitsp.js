@@ -153,7 +153,7 @@ async function drawBanner() {
         text: day,
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 158); // sunday
+      }, 1580, 159); // sunday
       banner.print(timeFont, 10, 0, {
         text: currentTime(new Date),
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
@@ -163,7 +163,7 @@ async function drawBanner() {
         text: date + ' ' + month + ' ' + year,
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 295); // 17 Januari 1996
+      }, 1580, 296); // 17 Januari 1996
       /*banner.print(monthFont, 10, 0, {
         text: month,
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
