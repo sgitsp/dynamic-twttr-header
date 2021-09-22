@@ -198,7 +198,8 @@ async function uploadBanner() {
 // Starter
 getLatestFollowers();
 
-setInterval(currentTime, 60000); // time update every 1 min
+//setInterval(currentTime, 60000); // time update every 1 min
 setInterval(() => {
   getLatestFollowers();
+  currentTime();
 }, 60000); // every 1 min 
