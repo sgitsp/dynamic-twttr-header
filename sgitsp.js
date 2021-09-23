@@ -20,7 +20,7 @@ var today = new Date();
 today.setUTCHours(today.getHours() + 7); // add 7 hour based on GMT+7 location
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const days = ["- S u n -", "- M o n -", "- T u e -", "- W e d -", "- T h u -", "- F r i -", "- S a t -"];
-//let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 let day = days[today.getDay()]; // Wednesday
 let date = today.getDate(); // 17
 let month = months[today.getMonth()]; // January
@@ -33,9 +33,9 @@ function currentTime(date) {
   let hours = ("0" + today.getHours()).slice(-2);
   let minutes = ("0" + today.getMinutes()).slice(-2);
   let seconds = ("0" + today.getSeconds()).slice(-2);
-  let time = hours + ':' + minutes;
+  let fullTime = hours + ':' + minutes;
   /*console.log('Time now:', time, 'WIB')*/
-  return time;
+  return fullTime;
 }
 
 // Function to get recent folowers
@@ -60,6 +60,7 @@ async function getLatestFollowers() {
   downloads.then(() => {
     drawBanner();
   });
+  console.log(`Croping avatar images...`);
 }
 
 // Function to resize downloaded avatar
@@ -79,7 +80,6 @@ async function downloadImage(url, image_path) {
           .toFile(image_path));
       })
   );
-  console.log(`Crop and rezise avatar images...`);
 }
 
 // Function to crop image
@@ -91,12 +91,12 @@ const width = 96,
 async function getRecentTrack() {
   let listening = ""
   await axios.get(process.env.LASTFM).then(response => {
-    var latestTrack = response.data.recenttracks.track[0]
+    var latestTrack = response.data.recenttracks.track[0];
     let trackTitle = latestTrack.name;
     let trackArtist = latestTrack.artist["#text"];
     let trackCover = latestTrack.image[3]["#text"];
     // detect if the track has attributes associated with it
-    var nowplaying = latestTrack["@attr"]
+    var nowplaying = latestTrack["@attr"];
     
     // if nowplaying attr is undefined
     if (typeof nowplaying === 'undefined') {
@@ -144,6 +144,7 @@ async function drawBanner() {
 
   Promise.all(promiseArray).then(
     ([banner, imageOne, imageTwo, imageThree, imageFour, listening, font]) => {
+      console.log(`Generating new header...`);
       banner.composite(imageOne, 1064, 22);
       banner.composite(imageTwo, 1160, 88);
       banner.composite(imageThree, 1265, 40);
@@ -174,7 +175,7 @@ async function drawBanner() {
         text: listening,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT
       }, 1445, 483);
-      console.log(`Generating new header...`);
+      console.log(`Recently played added!`);
       console.log(`Last sync: ${day}, ${fullDate} (${currentTime(new Date)} UTC+7)`);
       banner.write('1500x500-draw.png',function () {
         uploadBanner();
@@ -197,9 +198,8 @@ async function uploadBanner() {
 
 // Starter
 getLatestFollowers();
-
-//setInterval(currentTime, 60000); // time update every 1 min
+// Set interval
+setInterval(currentTime, 60000); // every 1 min
 setInterval(() => {
   getLatestFollowers();
-  currentTime();
 }, 60000); // every 1 min 
