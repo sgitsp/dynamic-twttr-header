@@ -15,27 +15,25 @@ const twitterClient = new TwitterClient({
   accessTokenSecret: process.env.CONSUMER_SECRET,
 });
 
-// Curent Date Function
-var today = new Date();
-today.setUTCHours(today.getHours() + 7); // add 7 hour based on GMT+7 location
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const days = ["- S u n -", "- M o n -", "- T u e -", "- W e d -", "- T h u -", "- F r i -", "- S a t -"];
-let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-let day = days[today.getDay()]; // Wednesday
-let date = today.getDate(); // 17
-let month = months[today.getMonth()]; // January
-let year = today.getFullYear(); // 1996
-let fullDate = today.getDate() + " " + month + " " + today.getFullYear(); // 17 January 1996
-
-function currentTime(date) {
+// Current dateTime Function
+function currentTime() {
   var today = new Date();
   today.setUTCHours(today.getHours() + 7); // add 7 hour based on GMT+7 location
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const days = ["- S u n -", "- M o n -", "- T u e -", "- W e d -", "- T h u -", "- F r i -", "- S a t -"];
+
+  let day = days[today.getDay()];
+  let date = today.getDate();
+  let month = months[today.getMonth()];
+  let year = today.getFullYear();
+  let fullDate = today.getDate() + " " + month + " " + today.getFullYear();
+
   let hours = ("0" + today.getHours()).slice(-2);
   let minutes = ("0" + today.getMinutes()).slice(-2);
   let seconds = ("0" + today.getSeconds()).slice(-2);
   let fullTime = hours + ':' + minutes;
   /*console.log('Time now:', time, 'WIB')*/
-  return fullTime;
+  return [day, date, month, year, fullDate, fullTime];
 }
 
 // Function to get recent folowers
@@ -131,6 +129,7 @@ let credit = 'This header image has been generated using special code by @sgitsp
 
 // Function to draw image
 async function drawBanner() {
+  const [day, date, month, year, fullDate, fullTime] = currentTime();
   const images = ['1500x500-default.png', '0.png', '1.png', '2.png', '3.png'];
   const promiseArray = [];
   const dayFont = await Jimp.loadFont('fonts/CaviarDreams_white-64.ttf.fnt');
@@ -151,20 +150,20 @@ async function drawBanner() {
       banner.composite(imageFour, 1352, 118);
       console.log(`Recent followers added!`);
       banner.print(dayFont, 10, 0, {
-        text: day,
+        text: day, // sunday
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 159); // sunday
+      }, 1580, 159);
       banner.print(timeFont, 10, 0, {
-        text: currentTime(new Date),
+        text: fullTime,  // 14:12 WIB
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 253); // 14:12
+      }, 1580, 253);
       banner.print(monthFont, 10, 0, {
-        text: date + ' ' + month + ' ' + year,
+        text: date + ' ' + month + ' ' + year, // 17 Januari 1996
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 296); // 17 Januari 1996
+      }, 1580, 296); 
       /*banner.print(monthFont, 10, 0, {
         text: month,
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
@@ -176,7 +175,7 @@ async function drawBanner() {
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT
       }, 1445, 483);
       console.log(`Recently played added!`);
-      console.log(`Last sync: ${day}, ${fullDate} (${currentTime(new Date)} UTC+7)`);
+      console.log(`Last sync: ${day}, ${fullDate} (${fullTime} UTC+7)`);
       banner.write('1500x500-draw.png',function () {
         uploadBanner();
       });
@@ -199,7 +198,8 @@ async function uploadBanner() {
 // Starter
 getLatestFollowers();
 // Set interval
-setInterval(currentTime, 60000); // every 1 min
+//setInterval(currentTime, 60000); // every 1 min
 setInterval(() => {
   getLatestFollowers();
+  currentTime();
 }, 60000); // every 1 min 
