@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup repo with node v.16
+      - name: Setup repo
         uses: actions/checkout@v2
+      
+      - name: setup node npm
         uses: action/setup-node@v2
         with:
           node-version: '16'
