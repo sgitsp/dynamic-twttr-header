@@ -33,7 +33,7 @@ function currentTime() {
   let seconds = ("0" + today.getSeconds()).slice(-2);
   let fullTime = hours + ':' + minutes;
   /*console.log('Time now:', time, 'WIB')*/
-  return [day, date, month, year, fullDate, fullTime];
+  return [day, date, month, year, fullDate, fullTime, seconds];
 }
 
 // Function to get recent folowers
@@ -44,7 +44,7 @@ async function getLatestFollowers() {
   });
   console.log(`Fetch recent followers...`);
 
-// Download avatar image...
+// Downloading avatar image...
   let count = 0;
   const downloads = new Promise((resolve, reject) => {
     data.users.forEach((user, index, arr) => {
@@ -58,7 +58,7 @@ async function getLatestFollowers() {
   downloads.then(() => {
     drawBanner();
   });
-  console.log(`Croping avatar images...`);
+  console.log(`Downloading avatar...`);
 }
 
 // Function to resize downloaded avatar
@@ -78,6 +78,7 @@ async function downloadImage(url, image_path) {
           .toFile(image_path));
       })
   );
+  console.log(`Resizing avatar...`);
 }
 
 // Function to crop image
@@ -85,16 +86,16 @@ const width = 96,
     r = width / 2,
     circleShape = Buffer.from(`<svg><circle cx="${r}" cy="${r}" r="${r}" /></svg>`);
 
-// Fetch Recent Track from Lastfm
+// Fetch recent track from LastFM
 async function getRecentTrack() {
   let listening = ""
   await axios.get(process.env.LASTFM).then(response => {
     var latestTrack = response.data.recenttracks.track[0];
+    // detect if the track has attributes associated with it
+    var nowplaying = latestTrack["@attr"];
     let trackTitle = latestTrack.name;
     let trackArtist = latestTrack.artist["#text"];
     let trackCover = latestTrack.image[3]["#text"];
-    // detect if the track has attributes associated with it
-    var nowplaying = latestTrack["@attr"];
     
     // if nowplaying attr is undefined
     if (typeof nowplaying === 'undefined') {
@@ -102,7 +103,7 @@ async function getRecentTrack() {
     } else {
       listening = ("Curently listening to" + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
     }
-    console.log(listening);
+    console.log('Get recent track...');
     /*downloadAlbumImage(trackCover, `trackCover.png`);*/
   });
   return listening;
@@ -129,7 +130,7 @@ let credit = 'This header image has been generated using special code by @sgitsp
 
 // Function to draw image
 async function drawBanner() {
-  const [day, date, month, year, fullDate, fullTime] = currentTime();
+  const [day, date, month, year, fullDate, fullTime, seconds] = currentTime();
   const images = ['1500x500-default.png', '0.png', '1.png', '2.png', '3.png'];
   const promiseArray = [];
   const dayFont = await Jimp.loadFont('fonts/CaviarDreams_white-64.ttf.fnt');
@@ -174,8 +175,8 @@ async function drawBanner() {
         text: listening,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT
       }, 1445, 483);
-      console.log(`Recently played added!`);
-      console.log(`Last sync: ${day}, ${fullDate} (${fullTime} UTC+7)`);
+      console.log(listening);
+      console.log(`Last sync: ${day} ${fullDate} | ${fullTime}:${seconds} (UTC+7)`);
       banner.write('1500x500-draw.png',function () {
         uploadBanner();
       });
@@ -202,4 +203,4 @@ getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
   currentTime();
-}, 60000); // every 1 min 
+}, 120000); // every 2 min 
