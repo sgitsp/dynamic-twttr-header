@@ -150,30 +150,31 @@ async function drawBanner() {
       banner.composite(imageThree, 1265, 40);
       banner.composite(imageFour, 1352, 118);
       console.log(`Recent followers added!`);
-      banner.print(dayFont, 10, 0, {
+      banner.print(dayFont, 0, 0, {
         text: day, // sunday
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 159);
-      banner.print(timeFont, 10, 0, {
+      }, 1500, 159);
+      banner.print(timeFont, 0, 0, {
         text: fullTime,  // 14:12 WIB
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 253);
-      banner.print(monthFont, 10, 0, {
+      }, 1500, 253);
+      banner.print(monthFont, 0, 0, {
         text: date + ' ' + month + ' ' + year, // 17 Januari 1996
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1580, 296); 
+      }, 1500, 296); 
       /*banner.print(monthFont, 10, 0, {
         text: month,
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
       }, 1580, 307); // January*/
       console.log(`Local time updated!`);
-      banner.print(listeningFont, 0, 465, {
+      banner.print(listeningFont, 0, 0, {
         text: listening,
-        alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT
+        alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
+        alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
       }, 1445, 483);
       console.log(listening);
       console.log(`Last sync: ${day} ${fullDate} | ${fullTime}:${seconds} (UTC+7)`);
