@@ -145,10 +145,10 @@ async function drawBanner() {
   Promise.all(promiseArray).then(
     ([banner, imageOne, imageTwo, imageThree, imageFour, listening, font]) => {
       console.log(`Generating new header...`);
-      banner.composite(imageOne, 1064, 22);
-      banner.composite(imageTwo, 1160, 88);
-      banner.composite(imageThree, 1265, 40);
-      banner.composite(imageFour, 1352, 118);
+      banner.composite(imageOne, 1008, 113);
+      banner.composite(imageTwo, 1092, 217);
+      banner.composite(imageThree, 1200, 154);
+      banner.composite(imageFour, 1284, 258);
       console.log(`Recent followers added!`);
       banner.print(dayFont, 0, 0, {
         text: day, // sunday
