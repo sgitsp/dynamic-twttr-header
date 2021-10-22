@@ -40,7 +40,7 @@ function currentTime() {
 async function getLatestFollowers() {
   const data = await twitterClient.accountsAndUsers.followersList({
     screen_name: process.env.TWITTER_HANDLE,
-    count: 4,
+    count: 5,
   });
   console.log(`Fetch recent followers...`);
 
@@ -131,7 +131,7 @@ let credit = 'This header image has been generated using special code by @sgitsp
 // Function to draw image
 async function drawBanner() {
   const [day, date, month, year, fullDate, fullTime, seconds] = currentTime();
-  const images = ['1500x500-default.png', '0.png', '1.png', '2.png', '3.png'];
+  const images = ['1500x500-default.png', '0.png', '1.png', '2.png', '3.png', '4.png'];
   const promiseArray = [];
   const dayFont = await Jimp.loadFont('fonts/CaviarDreams_white-64.ttf.fnt');
   const timeFont = await Jimp.loadFont("fonts/Caviar_Dreams_Bold_64.fnt");
@@ -144,16 +144,17 @@ async function drawBanner() {
 
   Promise.all(promiseArray).then(
     ([banner, imageOne, imageTwo, imageThree, imageFour, listening, font]) => {
-      banner.composite(imageOne, 1062, 148);
-      banner.composite(imageTwo, 1185, 148);
-      banner.composite(imageThree, 1126, 258);
-      banner.composite(imageFour, 1249, 258);
+      banner.composite(imageOne, 1057, 157);
+      banner.composite(imageTwo, 1179, 157);
+      banner.composite(imageThree, 1299, 157);
+      banner.composite(imageFour, 1124, 266);
+      banner.composite(imageFive, 1240, 266);
       console.log(`Recent followers added!`);
       banner.print(dayFont, 0, 0, {
         text: day, // sunday
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1500, 168);
+      }, 1500, 169);
       banner.print(timeFont, 0, 0, {
         text: fullTime,  // 14:12 WIB
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
@@ -174,7 +175,7 @@ async function drawBanner() {
         text: listening,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1445, 480);
+      }, 1444, 480);
       console.log(listening);
       console.log(`Last sync: ${day} ${fullDate} | ${fullTime}:${seconds} (UTC+7)`);
       banner.write('1500x500-draw.png',function () {
