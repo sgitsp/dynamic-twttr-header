@@ -143,7 +143,7 @@ async function drawBanner() {
   promiseArray.push(Jimp.loadFont(Jimp.FONT_SANS_16_WHITE));
 
   Promise.all(promiseArray).then(
-    ([banner, imageOne, imageTwo, imageThree, imageFour, listening, font]) => {
+    ([banner, imageOne, imageTwo, imageThree, imageFour, imageFive, listening, font]) => {
       banner.composite(imageOne, 1057, 157);
       banner.composite(imageTwo, 1179, 157);
       banner.composite(imageThree, 1299, 157);
