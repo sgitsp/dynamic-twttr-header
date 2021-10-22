@@ -144,11 +144,11 @@ async function drawBanner() {
 
   Promise.all(promiseArray).then(
     ([banner, imageOne, imageTwo, imageThree, imageFour, imageFive, listening, font]) => {
-      banner.composite(imageOne, 1057, 157);
-      banner.composite(imageTwo, 1179, 157);
-      banner.composite(imageThree, 1299, 157);
-      banner.composite(imageFour, 1124, 266);
-      banner.composite(imageFive, 1240, 266);
+      banner.composite(imageOne, 1032, 157);
+      banner.composite(imageTwo, 1154, 157);
+      banner.composite(imageThree, 1274, 157);
+      banner.composite(imageFour, 1099, 266);
+      banner.composite(imageFive, 1215, 266);
       console.log(`Recent followers added!`);
       banner.print(dayFont, 0, 0, {
         text: day, // sunday
@@ -204,4 +204,4 @@ getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
   currentTime();
-}, 120000); // every 2 min 
+}, 150000); // every 2.5 min in milliseconds
