@@ -70,6 +70,7 @@ async function downloadImage(url, image_path) {
     (response) =>
       new Promise((resolve, reject) => {
         resolve(sharp(response.data)
+          .grayscale()
           .resize(96, 96)
           .composite([{
             input: circleShape,
