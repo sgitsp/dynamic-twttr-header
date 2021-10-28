@@ -205,4 +205,11 @@ getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
   currentTime();
-}, 150000); // every 2.5 min in milliseconds
+}, 162000);
+
+/*
+every min interval in milliseconds
+1.0 = 60000
+2.5 = 150000
+2.7 = 162000
+*/
