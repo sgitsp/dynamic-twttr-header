@@ -205,7 +205,7 @@ getLatestFollowers();
 setInterval(() => {
   getLatestFollowers();
   currentTime();
-}, 162000);
+}, 120000);
 
 /*
 every min interval in milliseconds
