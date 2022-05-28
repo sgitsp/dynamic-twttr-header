@@ -293,9 +293,7 @@ async function drawBanner() {
       console.log(nowPlaying + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
       console.log(`Last sync: ${day} ${fullDate} | ${fullTime}:${seconds} (UTC+${timezone})`);
       banner.write('1500x500-draw.png', function() {
-        if (process.env.NODE_ENV === 'production') {
           uploadBanner();
-        };
       });
     }
   );
