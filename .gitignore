@@ -10,3 +10,5 @@ node_modules
 test.js
 production.zip
 1500x500-draw.png
+*.bak
+*.code-workspace

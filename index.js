@@ -293,7 +293,9 @@ async function drawBanner() {
       console.log(nowPlaying + ' ' + '"' + trackTitle + '"' + ' ' + 'by' + ' ' + trackArtist);
       console.log(`Last sync: ${day} ${fullDate} | ${fullTime}:${seconds} (UTC+${timezone})`);
       banner.write('1500x500-draw.png', function() {
-        uploadBanner();
+        if (process.env.NODE_ENV === 'production') {
+          uploadBanner();
+        };
       });
     }
   );
@@ -321,7 +323,7 @@ setInterval(() => {
   currentTime();
 }, 60000); // every 1 min (60000)
 
-/*
+/* ---------------------------------
 every min interval in milliseconds
 1.0 = 60000
 1.7 = 102000
@@ -329,4 +331,4 @@ every min interval in milliseconds
 2.7 = 162000
 2.9 = 174000
 3.0 = 180000
-*/
+  --------------------------------- */
