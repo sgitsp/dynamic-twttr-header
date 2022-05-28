@@ -23,7 +23,7 @@ const twitterClient = new TwitterClient({
   accessTokenSecret: process.env.CONSUMER_SECRET,
 });
 
-// Current dateTime Function
+// Current dateTime function
 const timezone = 8; // add 7 based on GMT+7 location
 
 function currentTime() {
@@ -46,7 +46,7 @@ function currentTime() {
   return [day, date, month, year, fullDate, fullTime, seconds];
 }
 
-// Greeting text
+// Greeting text function
 async function hello() {
   let helloText = "";
 
@@ -150,11 +150,10 @@ async function nowPlaying() {
     // detect if the track has attributes associated with it
     var np = latestTrack["@attr"];
     // if nowplaying attr is undefined
-    
     if (typeof np === 'undefined') {
       nowPlaying = ("Recently Played");
     } else {
-      nowPlaying = ("Curently listening to");
+      nowPlaying = ("Curently Listening");
     }
   })
   .catch(err => console.log(err))
