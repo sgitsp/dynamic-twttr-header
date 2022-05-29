@@ -275,11 +275,11 @@ async function drawBanner() {
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
       }, 1580, 307); // January*/
       console.log(`Local time updated!`);
-      banner.print(nowPlayingFont, 0, 0, {
+      banner.print(nowPlayingFont, 1257, 0, {
         text: nowPlaying,
-        alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
+        alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1385, 416);
+      }, 1500, 416);
       banner.print(listeningFont, 0, 0, {
         text: trackTitle,
         alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
