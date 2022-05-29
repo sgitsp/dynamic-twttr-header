@@ -247,12 +247,12 @@ async function drawBanner() {
         text: hello,
         alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1500, 210);
+      }, 1500, 212);
       banner.print(dayFont, 136, 0, {
         text: greeting,
         alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
         alignmentY: Jimp.VERTICAL_ALIGN_BOTTOM
-      }, 1500, 280);
+      }, 1500, 282);
       console.log(hello + ' ' + greeting);
       banner.print(dayFont, 0, 0, {
         text: day, // sunday
